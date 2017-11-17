@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app="app">
+
+<head>
+    <!--<base href="/angulatStudentDemo/">-->
+    <link href="assets/css/styles.css" rel="stylesheet" type="text/css"> </link>
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-ui-router.min.js"></script>
+    <script src="assets/js/angular-route.min.js"></script>
+    <script src="assets/js/angular-messages.js"></script>
+    <script src="assets/js/jquery-1.11.1.js"></script>
+</head>
+
+<body ng-cloak>
+    <div ng-controller="AppController as appVm">
+        <div ng-view=""></div>
+    </div>
+
+    <script src="app.module.js"></script>
+
+    <script src="app.controller.js"></script>
+    <script src="student/student.controller.js"></script>
+    <script src="testing/testing.controller.js"></script>
+
+    <script src="assets/js/checklist-model.js"></script>
+</body>
+
+</html>

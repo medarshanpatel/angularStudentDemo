@@ -1,0 +1,179 @@
+<form name="studentForm" novalidate>
+    <h2>Student Form</h2>
+    <table>
+        <tr>
+            <td width="150">First Name :</td>
+            <td>
+                <input type="text" name="firstName" ng-model="studentVm.user.firstName" ng-pattern="studentVm.nameRegexp" ng-required="true"
+                />
+                <ng-messages for="studentForm.firstName.$error">
+                    <ng-message when="required">
+                        Firstname is required
+                    </ng-message>
+                    <ng-message when="pattern">
+                        Firstname should be at least 2 digit.
+                    </ng-message>
+                </ng-message>
+            </td>
+        </tr>
+        <tr>
+            <td>Last Name : </td>
+            <td><input type="text" name="lastName" ng-model="studentVm.user.lastName" ng-pattern="studentVm.nameRegexp" ng-required="true"
+                />
+                <ng-messages for="studentForm.lastName.$error">
+                    <ng-message when="required">
+                        Lastname is required
+                    </ng-message>
+                    <ng-message when="pattern">
+                        Lastname should be at least 2 digit.
+                    </ng-message>
+               </ng-message>
+            </td>
+        </tr>
+        <tr>
+            <td valign='top'>Type </td>
+            <td>
+                <label for="student">Student</label>
+                <input id="student" type="radio" name="type" ng-model="studentVm.user.type" value="Student" ng-required="true">
+
+                <input type="text" name="studentName" ng-show="studentVm.user.type == 'Student'" ng-model="studentVm.user.studentName" ng-required="studentVm.user.type == 'Student'"
+                />
+                <ng-messages for="studentForm.studentName.$error">
+                    <ng-message when="required">
+                        Enter college name
+                    </ng-message>
+                </ng-messages>
+
+                <label for="companyName">Employee</label>
+                <input id="companyName" type="radio" name="type" ng-model="studentVm.user.type" value="Company" ng-required="true">
+
+                <input type="text" name="companyName" ng-show="studentVm.user.type == 'Company'" ng-model="studentVm.user.companyName" ng-required="studentVm.user.type == 'Company'"
+                />
+                <ng-messages for="studentForm.companyName.$error">
+                    <ng-message when="required">
+                        Enter company name
+                    </ng-message>
+                </ng-messages>
+
+                <ng-messages for="studentForm.type.$error">
+                    <ng-message when="required">
+                        Select one type
+                    </ng-message>
+                </ng-message>
+            </td>
+        </tr>
+        <tr>
+            <td>Hobbies</td>
+            <td>
+                <label for="dancing">Dancing</label>
+                <input type="checkbox" checklist-model="studentVm.user.hobbies" checklist-value="'Dancing'" id="dancing">
+
+                <label for="coding">Coding</label>
+                <input type="checkbox" checklist-model="studentVm.user.hobbies" checklist-value="'Coding'" id="coding">
+
+                <label for="swimming">Swimming</label>
+                <input type="checkbox" checklist-model="studentVm.user.hobbies" checklist-value="'Swimming'" id="swimming">
+
+                <label for="reading">Reading</label>
+                <input type="checkbox" checklist-model="studentVm.user.hobbies" checklist-value="'Reading'" id="reading">
+            </td>
+        </tr>
+        <tr>
+            <td>Email Address :</td>
+            <td><input type="text" name="email" ng-model="studentVm.user.email" ng-pattern="studentVm.emailRegex" ng-required="true"
+                />
+                <ng-messages for="studentForm.email.$error">
+                    <ng-message when="required">
+                        Email address is required
+                    </ng-message>
+                    <ng-message when="pattern">
+                        Enter a valid email address
+                    </ng-message>
+                </ng-message>
+            </td>
+        </tr>
+        <tr>
+            <td valign='top'>Mobile No. : </td>
+            <td><input type="text" name="number" ng-model="studentVm.user.number" ng-pattern="studentVm.mobileNoRegex" ng-required="true"
+                />
+                <ng-messages for="studentForm.number.$error">
+                    <ng-message when="required">
+                        Number is required
+                    </ng-message>
+                    <ng-message when="pattern">
+                        Mobile No. should be 10 digit number.
+                    </ng-message>
+                </ng-message>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button ng-click="studentVm.addForm(studentForm)">Save</button>
+                <button ng-click="studentVm.resetData(studentForm)">Reset</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<pre> User = {{studentVm.user}} </pre>
+<pre> User = {{studentVm.users.length}} </pre>
+<table>
+    <tr>
+        <td align='center' colspan="10">
+            <h4>Student Data</h2>
+        </td>
+    </tr>
+    <tr>
+        <td> Sr No.</td>
+        <td> First Name</td>
+        <td> Last Name</td>
+        <td> Email</td>
+        <td> Mobile No.</td>
+        <td> Type </td>
+        <td>Student</td>
+        <td> Hobbies </td>
+        <td colspan='2'>Action</td>
+    </tr>
+    <tr ng-repeat="data in studentVm.users track by $index" ng-if="data.type=='Student'">
+        <td> {{$index+1}} </td>
+        <td> {{data.firstName}} </td>
+        <td> {{data.lastName}} </td>
+        <td> {{data.email}}</td>
+        <td> {{data.number}} </td>
+        <td> {{data.type}} </td>
+        <td> {{data.studentName}} </td>
+        <td> {{data.hobbies.toString()}} </td>
+        <td> <button ng-click="studentVm.deleteUser($index)">Delete</button></td>
+        <td> <button ng-click="studentVm.editUser($index)">Edit</button></td>
+    </tr>
+</table>
+</br>
+<table border="1">
+    <tr>
+        <td align='center' colspan="10">
+            <h4>Employee Data</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>Sr No.</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Email</td>
+        <td>Mobile No.</td>
+        <td>Type</td>
+        <td>Employee</td>
+        <td>Hobbies</td>
+        <td colspan='2'>Action</td>
+    </tr>
+    <tr ng-repeat="data in studentVm.users track by $index" ng-if="data.type=='Company'">
+        <td> {{$index+1}} </td>
+        <td> {{data.firstName}} </td>
+        <td> {{data.lastName}} </td>
+        <td>{{data.email}}</td>
+        <td> {{data.number}} </td>
+        <td> {{data.type}} </td>
+        <td> {{data.companyName}} </td>
+        <td>{{data.hobbies.toString()}} </td>
+        <td><button ng-click="studentVm.deleteUser($index)">Delete</button></td>
+        <td><button ng-click="studentVm.editUser($index)">Edit</button></td>
+    </tr>
+</table>
